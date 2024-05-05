@@ -33,3 +33,75 @@ pipeline:
             spec: {}
             type: Docker
         type: CI
+    - stage:
+        name: Set up Dependencies
+        identifier: Set_up_Dependencies
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: build
+                  identifier: build
+                  spec:
+                    shell: Sh
+                    command: |-
+                      - step:
+                                         type: Run
+                                         name: build
+                                         identifier: build
+                                         spec:
+                                           connectorRef: account.harnessImage
+                                           image: maven:3.8-jdk-11
+                                           shell: Sh
+                                           command: |-
+                                             mvn clean package dependency:copy-dependencies
+              - step:
+                  type: Run
+                  name: check dependencies
+                  identifier: check_dependencies
+                  spec:
+                    shell: Sh
+                    command: |-
+                      type: Run
+                                             name: check dependencies
+                                             identifier: check_dependencies
+                                             spec:
+                                               connectorRef: account.harnessImage
+                                               image: maven:3.8-jdk-11
+                                               shell: Sh
+                                               command: |-
+                                                 mvn dependency-check:check -U -DskipTests
+                                               reports:
+                                                 type: JUnit
+                                                 spec:
+                                                   paths:
+                                                     - /harness/target/*.xml
+              - step:
+                  type: Run
+                  name: run test
+                  identifier: run_test
+                  spec:
+                    shell: Sh
+                    command: |-
+                      type: Run
+                          name: run test
+                          identifier: run_test
+                          spec:
+                            shell: Sh
+                            command: |-
+                              mvn test
+                            reports:
+                              type: JUnit
+                              spec:
+                                paths:
+                                  - target/surefire-reports/*.xml
