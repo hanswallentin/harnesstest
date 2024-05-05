@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_hanswallentin_harnesstest_1714934132073-push-trigger-input-set
+  identifier: Build_hanswallentin_harnesstest_1714934132073pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: Enterprise_SE_Lab
+  pipeline:
+    identifier: Build_hanswallentin_harnesstest_1714934132073
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
