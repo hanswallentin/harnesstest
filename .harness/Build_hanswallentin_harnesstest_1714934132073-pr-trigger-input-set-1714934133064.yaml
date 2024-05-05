@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_hanswallentin_harnesstest_1714934132073-pr-trigger-input-set
+  identifier: Build_hanswallentin_harnesstest_1714934132073prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: Enterprise_SE_Lab
+  pipeline:
+    identifier: Build_hanswallentin_harnesstest_1714934132073
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
